@@ -23,7 +23,7 @@ public class App
 	public static final String searchURL=rootURL+"searchapp/searchresults.net?"
 			+ "searchResultOrder=Relevance&searchFilterFormatType=All&"
 			+ "searchFilterDateMadeActive=All&pageNumber=%d";
-	
+	public static final String userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36";
 	//public static final String bookSearchURL=rootURL
 	public static final int totalPage=20;//how many pages to extract
 	
@@ -49,7 +49,7 @@ public class App
 			System.out.println("Page "+pageNum+" started...url is "+url);
 			try {
 				Document document= Jsoup.connect(url).
-				userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36")
+				userAgent(userAgent)
 				.get();
 				//System.out.println(document.toString());
 				
