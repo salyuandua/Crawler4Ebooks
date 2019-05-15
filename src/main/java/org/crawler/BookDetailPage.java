@@ -17,19 +17,88 @@ public class BookDetailPage {
 	}
 
 	public Book parseBookInfo() {
-		parseBookTitle().parseBookSubTitle().parseAuthors().parseDescription()
-
+		parseBookTitle().parseBookSubTitle().parseAuthors().parseDescription().parseImgUrl().parsePublisher()
+				.parseCategories().parseISBN().parsePrice();
+		return book;
 
 	}
 
-	public BookDetailPage parsePrice() {
+	/**
+	 * Parse categories
+	 * 
+	 * @return
+	 */
+	public BookDetailPage parseCategories() {
+		Element e = document.selectFirst("ul.subjectnav");
+		Elements cataList = null;
+		if (e != null && (cataList = e.select("li")) != null && cataList.size() != 0) {
+			for (Element cata_li : cataList) {
+				Elements cata_a_list = cata_li.select("a");
+				if (cata_a_list != null) {
+					for (Element cata_a : cata_a_list) {
+						book.getCategories().add(cata_a.text());
+					}
 
-		Element e = document.selectFirst("div.price.center.h2 div.price");
+				}
+
+			}
+
+		}
+		return this;
+	}
+
+	/**
+	 * parse ISBN
+	 * 
+	 * @return
+	 */
+	public BookDetailPage parseISBN() {
+		Element e = document.selectFirst("span[itemprop=isbn]");
 		if (e != null) {
-			String priceStr = e.text();
-			priceStr = priceStr.substring(3);
-			double price=Double.parseDouble(priceStr);
-			
+			book.setISBN(e.text());
+		}
+		return this;
+	}
+
+	/**
+	 * Parse publisher
+	 * 
+	 * @return
+	 */
+	public BookDetailPage parsePublisher() {
+
+		Element e = document.selectFirst("li[itemprop=publisher]");
+		Element publisherEle = null;
+		if (e != null && (publisherEle = e.selectFirst("a")) != null) {
+			book.setPublisher(publisherEle.text());
+
+		}
+
+		return this;
+
+	}
+
+	/**
+	 * parse price
+	 * 
+	 * @return
+	 */
+	@SuppressWarnings("finally")
+	public BookDetailPage parsePrice() {
+		try {
+			Element e = document.selectFirst("div.price.center.h2 div.price");
+			if (e != null) {
+				String priceStr = e.text();
+				priceStr = priceStr.substring(3);
+				double price = Double.parseDouble(priceStr);
+				book.setPrice(price);
+			}
+			// return this;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			return this;
 		}
 
 	}
@@ -113,4 +182,9 @@ public class BookDetailPage {
 		return this;
 	}
 
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return book.toString();
+	}
 }

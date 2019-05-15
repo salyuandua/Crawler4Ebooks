@@ -1,30 +1,35 @@
 package org.crawler;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Book {
 
 	private int id;
-	
-	private String url;
-	
-	private String title;
-	
-	private String subTitle;
-	
+
+	private String url = "";
+
+	private String title = "";
+
+	private String subTitle = "";
+
 	private double price;
-	
-	private List<String> authors;
-	
-	private String description;
-	
-	private String publisher;
-	
-	private String releaseDate;
-	
-	private List<String> ISBNs;
-	
-	private String imageUrl;
+
+	private List<String> authors = new ArrayList<String>();
+
+	private String description = "";
+
+	private String publisher = "";
+
+	private String releaseDate = "";
+
+	private String ISBN = "";
+
+	private String imageUrl = "";
+
+	private Set<String> categories = new HashSet<String>();
 
 	public int getId() {
 		return id;
@@ -39,6 +44,7 @@ public class Book {
 	}
 
 	public void setUrl(String url) {
+
 		this.url = url;
 	}
 
@@ -98,12 +104,12 @@ public class Book {
 		this.releaseDate = releaseDate;
 	}
 
-	public List<String> getISBNs() {
-		return ISBNs;
+	public String getISBN() {
+		return ISBN;
 	}
 
-	public void setISBNs(List<String> iSBNs) {
-		ISBNs = iSBNs;
+	public void setISBN(String iSBN) {
+		this.ISBN = iSBN;
 	}
 
 	public String getImageUrl() {
@@ -114,14 +120,22 @@ public class Book {
 		this.imageUrl = imageUrl;
 	}
 
+	public Set<String> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(Set<String> categories) {
+		this.categories = categories;
+	}
+
 	@Override
 	public String toString() {
 		return "Book [id=" + id + ", url=" + url + ", title=" + title + ", subTitle=" + subTitle + ", price=" + price
 				+ ", authors=" + authors + ", description=" + description + ", publisher=" + publisher
-				+ ", releaseDate=" + releaseDate + ", ISBNs=" + ISBNs + ", imageUrl=" + imageUrl + "]";
+				+ ", releaseDate=" + releaseDate + ", ISBN=" + ISBN + ", imageUrl=" + imageUrl + ", categories="
+				+ categories + "]";
 	}
+
 	
-	
-	
-	
+
 }
