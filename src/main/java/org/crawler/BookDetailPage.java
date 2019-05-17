@@ -2,9 +2,12 @@ package org.crawler;
 
 import java.util.ArrayList;
 
+import org.crawler.utils.DBUtils;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
+import com.mongodb.client.MongoCollection;
 
 public class BookDetailPage {
 
@@ -16,6 +19,39 @@ public class BookDetailPage {
 		this.book = book;
 	}
 
+	
+	public Book getBook() {
+		return book;
+	}
+
+
+	/**
+	 * persist book
+	 * 
+	 * @return
+	 */
+	public void persist() {
+		try {
+			MongoCollection<org.bson.Document> collection = DBUtils.getCollection("ebook", "ebook");
+			org.bson.Document bookDoc = new org.bson.Document();
+			bookDoc.append("title", book.getTitle()).append("subTitle", book.getSubTitle())
+					.append("publisher", book.getPublisher()).append("price", book.getPrice())
+					.append("ISBN", book.getISBN()).append("imageURL", book.getImageUrl())
+					.append("desc", book.getDescription()).append("categories", book.getCategories())
+					.append("authors", book.getAuthors());
+			collection.insertOne(bookDoc);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+
+	}
+
+	/**
+	 * Parse all info of book
+	 * 
+	 * @return
+	 */
 	public Book parseBookInfo() {
 		parseBookTitle().parseBookSubTitle().parseAuthors().parseDescription().parseImgUrl().parsePublisher()
 				.parseCategories().parseISBN().parsePrice();

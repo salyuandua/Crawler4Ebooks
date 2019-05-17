@@ -29,7 +29,8 @@ public class BookDetailExtracter implements Runnable {
 				Document bookDetailDoc = Jsoup.connect(book.getUrl()).userAgent(App.userAgent).get();
 				BookDetailPage bookDetailPage = new BookDetailPage(bookDetailDoc, book);
 				bookDetailPage.parseBookInfo();
-				System.out.println(bookDetailPage.toString());
+				bookDetailPage.persist();
+				System.out.println("++++++Book "+bookDetailPage.getBook().getTitle()+" persisted++++++");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

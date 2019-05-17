@@ -10,7 +10,7 @@ import com.mongodb.client.MongoDatabase;
 public class DBUtils {
 private static MongoClient mClient;
 static {
-	mClient=MongoClients.create("mongodb://localhost:27017?ssl=true&authSource=admin&retryWrites=true");
+	mClient=MongoClients.create("mongodb://localhost:27017/ebook");
 	
 }
 
